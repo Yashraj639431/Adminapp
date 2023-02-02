@@ -33,7 +33,7 @@ const AddProduct = () => {
     dispatch(getBrands());
     dispatch(getProductCat());
     dispatch(getColors());
-  }, [dispatch, color]);
+  }, [dispatch]);
 
   const brandState = useSelector((state) => state.brand.brands);
   const proCatState = useSelector((state) => state.pCategory.proCategories);
@@ -74,9 +74,14 @@ const AddProduct = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
+      // alert(JSON.stringify(values))
       dispatch(createProducts(values));
     },
   });
+  const [desc, setDesc] = useState();
+  const handleDesc = (e) => {
+    setDesc(e);
+  };
   return (
     <div>
       <h3 className="mb-4 title">Add Product</h3>
@@ -200,7 +205,7 @@ const AddProduct = () => {
               )}
             </Dropzone>
           </div>
-          <div className="showimages d-flex gap-3">
+          <div className="showimages d-flex flex-wrap gap-3">
             {imgState?.map((i, j) => {
               return (
                 <div className="position-relative" key={j}>
@@ -216,7 +221,7 @@ const AddProduct = () => {
             })}
           </div>
           <button
-            className="btn btn-success border-0 rounded-3 my-2"
+            className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
             Add Product
