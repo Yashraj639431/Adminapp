@@ -25,7 +25,6 @@ export const createProducts = createAsyncThunk(
 
 const initialState = {
   products: [],
-  createdProducts: "",
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -60,7 +59,7 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createdProducts = action.payload;
+        state.createdProduct = action.payload;
       })
       .addCase(createProducts.rejected, (state, action) => {
         state.isLoading = false;
