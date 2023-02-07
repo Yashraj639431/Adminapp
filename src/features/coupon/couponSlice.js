@@ -1,18 +1,18 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import couponService from "./couponService";
 
-export const getAllCoupon = createAsyncThunk(
-  "coupon/get-coupons",
+export const getCoupons = createAsyncThunk(
+  "coupons/get-coupons",
   async (thunkAPI) => {
     try {
-      return await couponService.getCoupons();
+      return await couponService.getBrands();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-export const createCoupons = createAsyncThunk(
-  "coupon/create-coupon",
+export const createCoupon = createAsyncThunk(
+  "coupons/create-coupons",
   async (couponData, thunkAPI) => {
     try {
       return await couponService.createCoupon(couponData);
@@ -36,31 +36,31 @@ export const couponSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllCoupon.pending, (state) => {
+      .addCase(getCoupons.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getAllCoupon.fulfilled, (state, action) => {
+      .addCase(getCoupons.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.coupons = action.payload;
       })
-      .addCase(getAllCoupon.rejected, (state, action) => {
+      .addCase(getCoupons.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(createCoupons.pending, (state) => {
+      .addCase(createCoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createCoupons.fulfilled, (state, action) => {
+      .addCase(createCoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.createdCoupon = action.payload;
       })
-      .addCase(createCoupons.rejected, (state, action) => {
+      .addCase(createCoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

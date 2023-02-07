@@ -25,6 +25,6 @@ export const store = configureStore({
     enquiry: enquiryReducer,
     order: orderReducer,
     upload: uploadReducer,
-    coupon: couponReducer,
+    coupon: colorReducer,
   },
 });

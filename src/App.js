@@ -21,8 +21,8 @@ import AddCat from './pages/AddCat';
 import AddColor from './pages/AddColor';
 import AddBrand from './pages/AddBrand';
 import AddProduct from './pages/AddProduct';
-import CouponList from './pages/CouponList';
 import AddCoupon from './pages/AddCoupon';
+import CouponList from './pages/CouponList';
 
 function App() {
   return (
