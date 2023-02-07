@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import CustomInput from "../components/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -13,7 +12,6 @@ let schema = yup.object().shape({
 });
 const AddCat = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const newProductCat = useSelector((state) => state.pCategory);
   const { isSuccess, isError, isLoading, CreatedproCategories } = newProductCat;
   useEffect(() => {
@@ -23,7 +21,7 @@ const AddCat = () => {
     if (isError) {
       toast.error("Something Went Wrong!");
     }
-  }, [isSuccess, isError, isLoading]);
+  }, [isSuccess, isError, isLoading, CreatedproCategories]);
 
   const formik = useFormik({
     initialValues: {

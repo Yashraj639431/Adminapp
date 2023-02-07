@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
-import { useNavigate } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
 import * as yup from "yup";
@@ -31,9 +30,7 @@ let schema = yup.object().shape({
 
 const AddProduct = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [color, setColor] = useState([]);
-  const [images, setImages] = useState([]);
 
   useEffect(() => {
     dispatch(getBrands());
@@ -54,7 +51,7 @@ const AddProduct = () => {
     if (isError) {
       toast.error("Something Went Wrong!");
     }
-  }, [isSuccess, isError, isLoading]);
+  }, [isSuccess, isError, isLoading, createdProduct]);
 
   const coloropt = [];
   colorState.forEach((i) => {
@@ -94,8 +91,7 @@ const AddProduct = () => {
       dispatch(createProducts(values));
       formik.resetForm();
       setColor(null);
-      setTimeout(() => {
-      }, 3000);
+      setTimeout(() => {}, 3000);
     },
   });
   const handleColors = (e) => {
@@ -202,7 +198,7 @@ const AddProduct = () => {
           <div className="error">
             {formik.touched.tags && formik.errors.tags}
           </div>
-          
+
           <Select
             mode="multiple"
             allowClear
