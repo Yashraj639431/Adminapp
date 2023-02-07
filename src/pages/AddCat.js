@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { createProCat } from "../features/pcategory/pCategorySlice";
+import { resetState } from "../features/color/colorSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Category is Required"),
@@ -33,7 +34,7 @@ const AddCat = () => {
       dispatch(createProCat(values));
       formik.resetForm();
       setTimeout(() => {
-        navigate("/admin/category-list");
+        dispatch(resetState());
       }, 3000);
     },
   });

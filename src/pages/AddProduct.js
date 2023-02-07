@@ -51,7 +51,7 @@ const AddProduct = () => {
     if (isSuccess && createdProduct) {
       toast.success("Product Added Successfully!");
     }
-    if(isError){
+    if (isError) {
       toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
@@ -95,7 +95,6 @@ const AddProduct = () => {
       formik.resetForm();
       setColor(null);
       setTimeout(() => {
-        navigate("/admin/product-list");
       }, 3000);
     },
   });
@@ -129,7 +128,6 @@ const AddProduct = () => {
               onChange={formik.handleChange("description")}
               value={formik.values.description}
             />
-
             <div className="error">
               {formik.touched.description && formik.errors.description}
             </div>
@@ -186,7 +184,7 @@ const AddProduct = () => {
             })}
           </select>
           <div className="error">
-            {formik.touched.tags && formik.errors.tags}
+            {formik.touched.category && formik.errors.category}
           </div>
 
           <select
@@ -202,8 +200,9 @@ const AddProduct = () => {
             <option value="special">Special</option>
           </select>
           <div className="error">
-            {formik.touched.category && formik.errors.category}
+            {formik.touched.tags && formik.errors.tags}
           </div>
+          
           <Select
             mode="multiple"
             allowClear

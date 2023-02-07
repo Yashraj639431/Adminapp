@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { createBrand } from "../features/brand/brandSlice";
+import { createBrand, resetState } from "../features/brand/brandSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Brand Name is Required"),
@@ -23,7 +23,7 @@ const AddBrand = () => {
       toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
-  
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -33,7 +33,7 @@ const AddBrand = () => {
       dispatch(createBrand(values));
       formik.resetForm();
       setTimeout(() => {
-        navigate("/admin/brand-list");
+        dispatch(resetState());
       }, 3000);
     },
   });

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import pCatService from "./pCategoryService";
 
 export const getProductCat = createAsyncThunk(
@@ -23,6 +23,7 @@ export const createProCat = createAsyncThunk(
   }
 );
 
+export const resetState = createAction("Reset_All");
 const initialState = {
   proCategories: [],
   isError: false,
@@ -65,7 +66,8 @@ export const proCategories = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-      });
+      })
+      .addCase(resetState, () => initialState);
   },
 });
 
