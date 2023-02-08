@@ -29,6 +29,7 @@ const AddCat = () => {
     categoryName,
     updatedproCategories,
   } = newProductCat;
+
   useEffect(() => {
     if (getprocatId !== undefined) {
       dispatch(getAProductCat(getprocatId));
@@ -36,12 +37,13 @@ const AddCat = () => {
       dispatch(resetState());
     }
   }, [getprocatId, dispatch]);
+
   useEffect(() => {
     if (isSuccess && CreatedproCategories) {
       toast.success("Category Added Successfully!");
     }
     if (updatedproCategories && isSuccess) {
-      toast.success("Category Updated Successfully");
+      toast.success("Product Category Updated Successfully");
       navigate("/admin/category-list");
     }
     if (isError) {

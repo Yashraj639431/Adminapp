@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import CustomInput from "../components/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -12,17 +11,16 @@ let schema = yup.object().shape({
 });
 const AddBlogCat = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const newBlogCat = useSelector((state) => state.bCategory);
-  const { isSuccess, isError, isLoading, CreatedblogCategories } = newBlogCat;
+  const { isSuccess, isError, isLoading, createdblogCategory } = newBlogCat;
   useEffect(() => {
-    if (isSuccess && CreatedblogCategories) {
+    if (isSuccess && createdblogCategory) {
       toast.success("Blog Category Added Successfully!");
     }
     if (isError) {
       toast.error("Something Went Wrong!");
     }
-  }, [isSuccess, isError, isLoading]);
+  }, [isSuccess, isError, isLoading, createdblogCategory]);
 
   const formik = useFormik({
     initialValues: {
