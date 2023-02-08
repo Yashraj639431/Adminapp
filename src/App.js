@@ -45,6 +45,7 @@ function App() {
             <Route path="orders" element={<Orders />} />
             <Route path="customers" element={<Customers />} />
             <Route path="color" element={<AddColor />} />
+            <Route path="color/:id" element={<AddColor />} />
             <Route path="color-list" element={<ColorList />} />
             <Route path="category-list" element={<CategoryList />} />
             <Route path="brand" element={<AddBrand />} />
