@@ -4,7 +4,6 @@ import customerService from "./customerService";
 export const getUsers = createAsyncThunk(
   "customer/get-customers",
   async (thunkAPI) => {
-    "auth/admin-login";
     try {
       return await customerService.getUsers();  
     } catch (error) {
@@ -40,7 +39,7 @@ export const customerSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
-        state.customers = action.error;
+        state.message = action.error;
       });
   },
 });

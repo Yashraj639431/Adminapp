@@ -29,8 +29,10 @@ const Customers = () => {
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
+
   const customerState = useSelector((state) => state.customer.customers);
   const data1 = [];
+  
   for (let i = 0; i < customerState.length; i++) {
     if (customerState[i].role !== "admin") {
       data1.push({
@@ -41,6 +43,7 @@ const Customers = () => {
       });
     }
   }
+  
   return (
     <div>
       <h3 className="mb-4 title">Customers</h3>
