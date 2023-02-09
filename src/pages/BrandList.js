@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrands } from "../features/brand/brandSlice";
+import { Link } from "react-router-dom";
+import { BiEdit } from "react-icons/bi";
+import { AiOutlineDelete } from "react-icons/ai";
 
 const columns = [
   {
@@ -33,6 +36,16 @@ const Brands = () => {
       data1.push({
         key: i + 1,
         name: brandState[i].title,
+        action: (
+          <>
+            <Link to="/" className="fs-4">
+              <BiEdit />
+            </Link>
+            <Link className="ms-3 text-danger fs-4" to="/">
+              <AiOutlineDelete />
+            </Link>
+          </>
+        ),
       });
   }
   

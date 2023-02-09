@@ -69,7 +69,6 @@ const Products = () => {
           </Link>
         </>
       ),
-
     });
   }
   return (
