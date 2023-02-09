@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import CustomInput from "../components/CustomInput";
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,8 +30,8 @@ const Login = () => {
       alert(JSON.stringify(values, null, 2));
     },
   });
-  const authState = useSelector((state) => state);
 
+  const authState = useSelector((state) => state);
   const { user, isLoading, isError, isSuccess, message } = authState.auth;
   useEffect(() => {
     if (isSuccess) {
@@ -54,6 +54,7 @@ const Login = () => {
         <div className="error text-center">
           {message.message === "Rejected" ? "You are not an admin" : ""}
         </div>
+
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
@@ -69,6 +70,7 @@ const Login = () => {
               <div>{formik.errors.email}</div>
             ) : null}
           </div>
+
           <CustomInput
             type="password"
             name="password"
@@ -87,6 +89,7 @@ const Login = () => {
           <div className="mb-3 text-end">
             <Link to="forgot-password">Forgot Password</Link>
           </div>
+
           <button
             className="border-0 px-3 py-2 text-white fw-bold w-100 text-center text-decoration-none fs-5"
             style={{ background: "#ffd333" }}
