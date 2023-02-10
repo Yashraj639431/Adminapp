@@ -12,11 +12,9 @@ import {
   createBlogs,
   getABlogs,
   updateBlogs,
-} from "../features/blog/blogSlice";
-import {
-  getBlogCategories,
   resetState,
-} from "../features/bCategory/bCategorySlice";
+} from "../features/blog/blogSlice";
+import { getBlogCategories } from "../features/bCategory/bCategorySlice";
 import { useLocation, useNavigate } from "react-router-dom";
 
 let schema = yup.object().shape({
@@ -30,13 +28,14 @@ const AddBlog = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const getBlogId = location.pathname.split("/")[3];
+
   useEffect(() => {
     dispatch(getBlogCategories());
   }, [dispatch]);
 
   const imgState = useSelector((state) => state.upload.images);
   const bCatState = useSelector((state) => state.bCategory.bCategory);
-  const getBlogId = location.pathname.split("/")[3];
   const newBlog = useSelector((state) => state.blog);
   const {
     isSuccess,
@@ -53,6 +52,7 @@ const AddBlog = () => {
   useEffect(() => {
     if (getBlogId !== undefined) {
       dispatch(getABlogs(getBlogId));
+      img.push(blogImages);
     } else {
       dispatch(resetState());
     }
@@ -63,13 +63,25 @@ const AddBlog = () => {
       toast.success("Blog Added Successfully!");
     }
     if (updatedBlog && isSuccess) {
-      toast.success("Blog Updated Successfully");
+      toast.success("Brand Updated Successfully");
       navigate("/admin/blog-list");
     }
     if (isError) {
       toast.error("Something Went Wrong!");
     }
-  }, [isSuccess, isError, isLoading, createdBlog, updatedBlog, navigate]);
+  }, [isSuccess, isError, isLoading, createdBlog, navigate, updatedBlog]);
+
+  const img = useMemo(() => [], []);
+  imgState.forEach((i) => {
+    img.push({
+      public_id: i.public_id,
+      url: i.url,
+    });
+  });
+  console.log(img);
+  useEffect(() => {
+    formik.values.images = img;
+  }, [blogImages]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -77,7 +89,7 @@ const AddBlog = () => {
       title: blogName || "",
       description: blogDesc || "",
       category: blogCategory || "",
-      images: blogImages || "",
+      images: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -95,17 +107,6 @@ const AddBlog = () => {
     },
   });
 
-  const img = useMemo(() => [], []);
-  imgState.forEach((i) => {
-    img.push({
-      public_id: i.public_id,
-      url: i.url,
-    });
-  });
-  console.log(img);
-  useEffect(() => {
-    formik.values.images = img;
-  }, [img, formik]);
   return (
     <div>
       <h3 className="mb-4 title">
@@ -176,27 +177,12 @@ const AddBlog = () => {
               )}
             </Dropzone>
           </div>
-          <div className="showimages d-flex flex-wrap mt-3 gap-3">
-            {imgState?.map((i, j) => {
-              return (
-                <div className="position-relative" key={j}>
-                  <button
-                    type="button"
-                    onClick={() => dispatch(deleteImages(i.public_id))}
-                    className="btn-close position-absolute"
-                    style={{ top: "10px", right: "10px" }}
-                  ></button>
-                  <img src={i.url} alt="" width={200} height={200} />
-                </div>
-              );
-            })}
-          </div>
           <button
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
             {getBlogId !== undefined ? "Edit " : "Added "}
-            Blog
+            Add Blog
           </button>
         </form>
       </div>
