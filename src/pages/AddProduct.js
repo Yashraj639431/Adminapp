@@ -10,8 +10,8 @@ import { getBrands } from "../features/brand/brandSlice";
 import { getProductCategories } from "../features/pCategory/pCategorySlice";
 import { getColors } from "../features/color/colorSlice";
 import { Select } from "antd";
-// import { toast } from "react-toastify";
-// import { createProducts } from "../features/product/productSlice";
+import { toast } from "react-toastify";
+import { createProducts } from "../features/product/productSlice";
 import { deleteImages, uploadImages } from "../features/upload/uploadSlice";
 
 let schema = yup.object().shape({
@@ -44,16 +44,16 @@ const AddProduct = () => {
   );
   const colorState = useSelector((state) => state.color.colors);
   const imgState = useSelector((state) => state.upload.images);
-  //   const newProduct = useSelector((state) => state.product);
-  // const { isSuccess, isError, isLoading, createdProduct } = newProduct;
-  // useEffect(() => {
-  //   if (isSuccess && createdProduct) {
-  //     toast.success("Product Added Successfully!");
-  //   }
-  //   if (isError) {
-  //     toast.error("Something Went Wrong!");
-  //   }
-  // }, [isSuccess, isError, isLoading, createdProduct]);
+  const newProduct = useSelector((state) => state.product);
+  const { isSuccess, isError, isLoading, createdProduct } = newProduct;
+  useEffect(() => {
+    if (isSuccess && createdProduct) {
+      toast.success("Product Added Successfully!");
+    }
+    if (isError) {
+      toast.error("Something Went Wrong!");
+    }
+  }, [isSuccess, isError, isLoading, createdProduct]);
 
   const coloropt = [];
   colorState.forEach((i) => {
@@ -90,10 +90,10 @@ const AddProduct = () => {
     validationSchema: schema,
     onSubmit: (values) => {
       alert(JSON.stringify(values));
-      //   dispatch(createProducts(values));
-      //     formik.resetForm();
-      //     setColor(null);
-      //     setTimeout(() => {}, 3000);
+        dispatch(createProducts(values));
+          formik.resetForm();
+          setColor(null);
+          setTimeout(() => {}, 3000);
     },
   });
 
