@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import couponService from "./couponService";
 
+// Get all Coupons
 export const getCoupons = createAsyncThunk(
   "coupon/get-coupons",
   async (thunkAPI) => {
@@ -12,6 +13,7 @@ export const getCoupons = createAsyncThunk(
   }
 );
 
+// Create a Coupon
 export const createCoupons = createAsyncThunk(
   "coupon/create-coupons",
   async (couponData, thunkAPI) => {
@@ -23,10 +25,49 @@ export const createCoupons = createAsyncThunk(
   }
 );
 
+// Get a Brand
+export const getACoupons = createAsyncThunk(
+  "coupon/get-acoupons",
+  async (id, thunkAPI) => {
+    try {
+      return await couponService.getACoupon(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// Update a Brand
+export const updateCoupons = createAsyncThunk(
+  "coupon/update-Coupons",
+  async (coupon, thunkAPI) => {
+    try {
+      return await couponService.updateCoupon(coupon);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// Delete a Coupon
+export const deleteCoupons = createAsyncThunk(
+  "coupon/delete-coupons",
+  async (id, thunkAPI) => {
+    try {
+      return await couponService.deleteCoupon(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const resetState = createAction("Reset_All");
 const initialState = {
   coupons: [],
   createdCoupon: "",
+  couponName: "",
+  updatedCoupon: "",
+  deletedCoupon: "",
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -64,6 +105,51 @@ export const couponSlice = createSlice({
         state.createdCoupon = action.payload;
       })
       .addCase(createCoupons.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(getACoupons.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getACoupons.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.couponName = action.payload;
+      })
+      .addCase(getACoupons.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(updateCoupons.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCoupons.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.updatedCoupon = action.payload;
+      })
+      .addCase(updateCoupons.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(deleteCoupons.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteCoupons.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.deletedCoupon = action.payload;
+      })
+      .addCase(deleteCoupons.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
