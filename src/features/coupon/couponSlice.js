@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import couponService from "./couponService";
 
 export const getCoupons = createAsyncThunk(
@@ -12,8 +12,21 @@ export const getCoupons = createAsyncThunk(
   }
 );
 
+export const createCoupons = createAsyncThunk(
+  "coupon/create-coupons",
+  async (couponData, thunkAPI) => {
+    try {
+      return await couponService.createCoupon(couponData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const resetState = createAction("Reset_All");
 const initialState = {
   coupons: [],
+  createdCoupon: "",
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -40,7 +53,23 @@ export const couponSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-      });
+      })
+      .addCase(createCoupons.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createCoupons.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.createdCoupon = action.payload;
+      })
+      .addCase(createCoupons.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(resetState, () => initialState);
   },
 });
 
