@@ -27,7 +27,7 @@ export const createBrands = createAsyncThunk(
 
 // Get a Brand
 export const getABrands = createAsyncThunk(
-  "brand/get-abrands",
+  "brand/get-a-brand",
   async (id, thunkAPI) => {
     try {
       return await brandService.getABrand(id);
@@ -39,7 +39,7 @@ export const getABrands = createAsyncThunk(
 
 // Update a Brand
 export const updateBrands = createAsyncThunk(
-  "brand/update-brands",
+  "brand/update-brand",
   async (brand, thunkAPI) => {
     try {
       return await brandService.updateBrand(brand);

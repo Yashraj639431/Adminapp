@@ -88,7 +88,7 @@ const Brands = () => {
         hideModal={hideModal}
         open={open}
         performAction={() => deleteBrand(brandId)}
-        title="Ary you Sure you want to delete this brand ?"
+        title="Ary you Sure you want to delete this Brand ?"
       />
     </div>
   );
