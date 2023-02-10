@@ -30,8 +30,17 @@ const AddCoupon = () => {
     isLoading,
     createdCoupon,
     updatedCoupon,
-    // couponName,
+    couponName,
+    couponDiscount,
+    couponExpiry,
   } = newCoupon;
+
+  const changeDateFormat = (date) => {
+    const newDate = new Date(date).toLocaleDateString();
+
+    const [day, month, year] = newDate.split("/");
+    return [year, month, day].join("-");
+  };
 
   useEffect(() => {
     if (getCouponId !== undefined) {
@@ -45,26 +54,36 @@ const AddCoupon = () => {
     if (isSuccess && createdCoupon) {
       toast.success("Coupon Added Successfully!");
     }
-    if (updatedCoupon && isSuccess) {
-      toast.success("Coupon Updated Successfully");
+    if (isSuccess && updatedCoupon) {
+      toast.success("Coupon Updated Sucessfully");
       navigate("/admin/coupon-list");
     }
-    if (isError) {
+    if (isError && couponName && couponDiscount && couponExpiry) {
       toast.error("Something Went Wrong!");
     }
-  }, [isSuccess, isError, isLoading, createdCoupon, updatedCoupon, navigate]);
+  }, [
+    isSuccess,
+    isError,
+    isLoading,
+    couponName,
+    couponDiscount,
+    couponExpiry,
+    createdCoupon,
+    updatedCoupon,
+    navigate,
+  ]);
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: "",
-      expiry:  "",
-      discount: "",
+      name: couponName || "",
+      expiry: changeDateFormat(couponExpiry) || "",
+      discount: couponDiscount || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
       if (getCouponId !== undefined) {
-        const data = { id: getCouponId, brandData: values };
+        const data = { id: getCouponId, couponData: values };
         dispatch(updateCoupons(data));
       } else {
         dispatch(createCoupons(values));
