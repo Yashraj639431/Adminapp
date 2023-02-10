@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -9,7 +9,10 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { createBlogs } from "../features/blog/blogSlice";
-import { getBlogCategories, resetState } from "../features/bCategory/bCategorySlice";
+import {
+  getBlogCategories,
+  resetState,
+} from "../features/bCategory/bCategorySlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is Required"),
@@ -37,18 +40,6 @@ const AddBlog = () => {
     }
   }, [isSuccess, isError, isLoading, createdBlog]);
 
-  const img = [];
-  imgState.forEach((i) => {
-    img.push({
-      public_id: i.public_id,
-      url: i.url,
-    });
-  });
-
-  useEffect(() => {
-    formik.values.images = img;
-  }, [img]);
-
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -65,6 +56,17 @@ const AddBlog = () => {
       }, 3000);
     },
   });
+
+  const img = useMemo(() => [], []);
+  imgState.forEach((i) => {
+    img.push({
+      public_id: i.public_id,
+      url: i.url,
+    });
+  });
+  useEffect(() => {
+    formik.values.images = img;
+  }, [img, formik]);
   return (
     <div>
       <h3 className="mb-4 title">Add Blog</h3>

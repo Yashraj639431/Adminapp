@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -12,7 +12,7 @@ import { getColors } from "../features/color/colorSlice";
 import { Select } from "antd";
 import { toast } from "react-toastify";
 import { createProducts, resetState } from "../features/product/productSlice";
-import { deleteImages, uploadImages} from "../features/upload/uploadSlice";
+import { deleteImages, uploadImages } from "../features/upload/uploadSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is Required"),
@@ -63,18 +63,6 @@ const AddProduct = () => {
       value: i._id,
     });
   });
-  const img = [];
-  imgState.forEach((i) => {
-    img.push({
-      public_id: i.public_id,
-      url: i.url,
-    });
-  });
-
-  useEffect(() => {
-    formik.values.color = color ? color : " ";
-    formik.values.images = img;
-  }, [color, img]);
 
   const formik = useFormik({
     initialValues: {
@@ -98,6 +86,19 @@ const AddProduct = () => {
       }, 3000);
     },
   });
+
+  const img = useMemo(() => [], []);
+  imgState.forEach((i) => {
+    img.push({
+      public_id: i.public_id,
+      url: i.url,
+    });
+  });
+
+  useEffect(() => {
+    formik.values.color = color ? color : " ";
+    formik.values.images = img;
+  }, [color, img, formik]);
 
   const handleColors = (e) => {
     setColor(e);
