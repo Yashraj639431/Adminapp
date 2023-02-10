@@ -11,8 +11,8 @@ import { getProductCategories } from "../features/pCategory/pCategorySlice";
 import { getColors } from "../features/color/colorSlice";
 import { Select } from "antd";
 import { toast } from "react-toastify";
-import { createProducts } from "../features/product/productSlice";
-import { deleteImages, uploadImages } from "../features/upload/uploadSlice";
+import { createProducts, resetState } from "../features/product/productSlice";
+import { deleteImages, uploadImages} from "../features/upload/uploadSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is Required"),
@@ -46,6 +46,7 @@ const AddProduct = () => {
   const imgState = useSelector((state) => state.upload.images);
   const newProduct = useSelector((state) => state.product);
   const { isSuccess, isError, isLoading, createdProduct } = newProduct;
+
   useEffect(() => {
     if (isSuccess && createdProduct) {
       toast.success("Product Added Successfully!");
@@ -89,11 +90,12 @@ const AddProduct = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values));
-        dispatch(createProducts(values));
-          formik.resetForm();
-          setColor(null);
-          setTimeout(() => {}, 3000);
+      dispatch(createProducts(values));
+      formik.resetForm();
+      setColor(null);
+      setTimeout(() => {
+        dispatch(resetState());
+      }, 3000);
     },
   });
 
