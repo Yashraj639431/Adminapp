@@ -54,8 +54,8 @@ const AddBrand = () => {
   }, [isSuccess, isError, isLoading, createdBrand, updatedBrand, navigate]);
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      enableReinitialize: true,
       title: brandName || "",
     },
     validationSchema: schema,
