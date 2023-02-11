@@ -23,6 +23,7 @@ import CategoryList from './pages/CategoryList';
 import AddColor from './pages/AddColor';
 import ColorList from './pages/ColorList';
 import Customers from './pages/Customers';
+import ViewEnq from './pages/ViewEnq';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="admin" element={<MainLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="enquiries" element={<Enquiries />} />
+            <Route path="enquiries/:id" element={<ViewEnq />} />
             <Route path="blog" element={<AddBlog />} />
             <Route path="blog/:id" element={<AddBlog />} />
             <Route path="blog-list" element={<BlogList />} />
