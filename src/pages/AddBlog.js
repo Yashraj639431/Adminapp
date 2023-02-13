@@ -52,7 +52,7 @@ const AddBlog = () => {
   useEffect(() => {
     if (getBlogId !== undefined) {
       dispatch(getABlogs(getBlogId));
-      img.push(blogImages);
+      // img.push(blogImages);
     } else {
       dispatch(resetState());
     }
@@ -78,10 +78,9 @@ const AddBlog = () => {
       url: i.url,
     });
   });
-  console.log(img);
   useEffect(() => {
     formik.values.images = img;
-  }, [blogImages]);
+  }, [img]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -89,7 +88,7 @@ const AddBlog = () => {
       title: blogName || "",
       description: blogDesc || "",
       category: blogCategory || "",
-      images: "",
+      images: blogImages || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -110,7 +109,6 @@ const AddBlog = () => {
   return (
     <div>
       <h3 className="mb-4 title">
-        {" "}
         {getBlogId !== undefined ? "Edit " : "Added "}
         Blog
       </h3>
@@ -134,7 +132,7 @@ const AddBlog = () => {
             name="category"
             onChange={formik.handleChange("category")}
             onBlur={formik.handleBlur("category")}
-            value={formik.values.category}
+            vachrlue={formik.values.category}
             className="form-control py-3 mt-3"
             id=""
           >
