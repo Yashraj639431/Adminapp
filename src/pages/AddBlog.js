@@ -52,7 +52,7 @@ const AddBlog = () => {
   useEffect(() => {
     if (getBlogId !== undefined) {
       dispatch(getABlogs(getBlogId));
-      // img.push(blogImages);
+      img.push(blogImages);
     } else {
       dispatch(resetState());
     }
@@ -78,9 +78,10 @@ const AddBlog = () => {
       url: i.url,
     });
   });
+  console.log(img);
   useEffect(() => {
     formik.values.images = img;
-  }, [img]);
+  }, [blogImages]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -88,7 +89,7 @@ const AddBlog = () => {
       title: blogName || "",
       description: blogDesc || "",
       category: blogCategory || "",
-      images: blogImages || "",
+      images: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -109,6 +110,7 @@ const AddBlog = () => {
   return (
     <div>
       <h3 className="mb-4 title">
+        {" "}
         {getBlogId !== undefined ? "Edit " : "Added "}
         Blog
       </h3>
@@ -132,7 +134,7 @@ const AddBlog = () => {
             name="category"
             onChange={formik.handleChange("category")}
             onBlur={formik.handleBlur("category")}
-            vachrlue={formik.values.category}
+            value={formik.values.category}
             className="form-control py-3 mt-3"
             id=""
           >
@@ -174,21 +176,6 @@ const AddBlog = () => {
                 </section>
               )}
             </Dropzone>
-          </div>
-          <div className="showimages d-flex flex-wrap gap-3">
-            {imgState?.map((i, j) => {
-              return (
-                <div className="position-relative" key={j}>
-                  <button
-                    type="button"
-                    onClick={() => dispatch(deleteImages(i.public_id))}
-                    className="btn-close position-absolute"
-                    style={{ top: "10px", right: "10px" }}
-                  ></button>
-                  <img src={i.url} alt="" width={200} height={200} />
-                </div>
-              );
-            })}
           </div>
           <button
             className="btn btn-success border-0 rounded-3 my-5"

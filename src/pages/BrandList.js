@@ -74,7 +74,6 @@ const Brands = () => {
     dispatch(deleteBrands(e));
     setOpen(false);
     setTimeout(() => {
-      dispatch(resetState());
       dispatch(getBrands());
     }, 100);
   };

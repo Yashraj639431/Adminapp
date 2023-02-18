@@ -1,25 +1,27 @@
 import React from "react";
-import { RiLockPasswordLine } from "react-icons/ri";
+import CustomInput from "../components/CustomInput";
+
 const ResetPassword = () => {
   return (
-    <div className="section">
-      <div className="form-box">
+    <div className="py-5" style={{ background: "#ffd333", minHeight: "100vh" }}>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
+        <h3 className="text-center title">Reset Password</h3>
+        <p className="text-center">Please enter your new password</p>
         <form action="">
-          <h3>Reset Password</h3>
-          <p>Please enter your new password</p>
-          <div className="inputbox">
-            <RiLockPasswordLine className="react-icons" />
-
-            <input type="password" id="pass" required />
-            <label>New Password</label>
-          </div>
-          <div className="inputbox">
-            <RiLockPasswordLine className="react-icons" />
-
-            <input type="password" id="confpass" required />
-            <label>Confirm Password</label>
-          </div>
-          <button type="submit">Reset Password</button>
+          <CustomInput type="password" label="New Password" id="pass" />
+          <CustomInput type="password" label="Confirm Password" id="confpass" />
+          <button
+            className="border-0 px-3 py-2 text-white fw-bold w-100"
+            style={{ background: "#ffd333" }}
+            type="submit"
+          >
+            Reset Password
+          </button>
         </form>
       </div>
     </div>
