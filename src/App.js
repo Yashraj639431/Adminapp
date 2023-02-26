@@ -24,6 +24,7 @@ import AddColor from './pages/AddColor';
 import ColorList from './pages/ColorList';
 import Customers from './pages/Customers';
 import ViewEnq from './pages/ViewEnq';
+import ViewOrders from './pages/ViewOrder';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
             <Route path="coupon/:id" element={<AddCoupon />} />
             <Route path="coupon-list" element={<CouponList />} />
             <Route path="orders" element={<Orders />} />
+            <Route path="order/:id" element={<ViewOrders />} />
             <Route path="product" element={<AddProduct />} />
             <Route path="product-list" element={<ProductList />} />
             <Route path="brand" element={<AddBrand />} />

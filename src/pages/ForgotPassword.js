@@ -1,29 +1,54 @@
 import React from "react";
-import CustomInput from "../components/CustomInput";
+import { useFormik } from "formik";
+import { AiOutlineMail } from "react-icons/ai";
+import * as yup from "yup";
 
 const ForgotPassword = () => {
+  let schema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Email should be valid")
+      .required("Email is Required"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: schema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
   return (
-    <div className="py-5" style={{ background: "#ffd333", minHeight: "100vh" }}>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
-        <h3 className="text-center title">Forgot Password</h3>
-        <p className="text-center">Please enter your register email to get reset password mail.</p>
-        <form action="">
-          <CustomInput type="password" label="Email Address" id="email" />
-          <button
-            className="border-0 px-3 py-2 text-white fw-bold w-100"
-            style={{ background: "#ffd333" }}
-            type="submit"
-          >
-            Send Link
-          </button>
-        </form>
+    <section id="section">
+      <div className="form-box">
+        <div className="form-value">
+          <h3 className="text-center title">Forgot Password</h3>
+          <p className="text-center">
+            Please enter your register email to get reset password mail.
+          </p>
+          <form action="" onSubmit={formik.handleSubmit}>
+            <h2>Login</h2>
+            <div className="inputbox">
+              <AiOutlineMail className="ion-icon" />
+              <input
+                type="email"
+                label="Email Address"
+                id="email"
+                value={formik.values.email}
+                onChange={formik.handleChange("email")}
+                onBlur={formik.handleBlur("email")}
+                autoComplete="off"
+                required
+              />
+              <label for="">Email</label>
+            </div>
+            <button type="submit">Send Link</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
