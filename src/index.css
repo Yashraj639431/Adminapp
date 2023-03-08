@@ -92,7 +92,7 @@ main::-webkit-scrollbar {
 }
 
 /* Login Page */
-.section {
+#section {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,7 +114,7 @@ main::-webkit-scrollbar {
   align-items: center;
 }
 
-.form-box h3 {
+.form-box h2 {
   font-size: 2em;
   color: #fff;
   text-align: center;
@@ -158,7 +158,7 @@ input:valid ~ label {
   color: #fff;
 }
 
-.form-box .react-icons {
+.ion-icon {
   position: absolute;
   right: 8px;
   color: #fff;
@@ -166,7 +166,7 @@ input:valid ~ label {
   top: 20px;
 }
 
-.form-box .forgot {
+.form-box .forget {
   margin: -15px 0 15px;
   font-size: .9em;
   color: #fff;
@@ -174,16 +174,16 @@ input:valid ~ label {
   justify-content: center;
 }
 
-.form-box .forgot label input {
+.form-box .forget label input {
   margin-right: 3px;
 }
 
-.form-box .forgot a {
+.form-box .forget a {
   color: #fff;
   text-decoration: none;
 }
 
-.form-box .forgot a:hover {
+.form-box .forget a:hover {
   text-decoration: underline;
 }
 
