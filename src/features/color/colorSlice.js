@@ -64,10 +64,6 @@ export const deleteColors = createAsyncThunk(
 export const resetState = createAction("Reset_All");
 const initialState = {
   colors: [],
-  createdColor: "",
-  colorName: "",
-  updatedColor: "",
-  deletedColor: "",
   isError: false,
   isLoading: false,
   isSuccess: false,

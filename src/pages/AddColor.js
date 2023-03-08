@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 let schema = yup.object().shape({
   title: yup.string().required("Color is Required"),
 });
+
 const AddColor = () => {
   const dispatch = useDispatch();
   const location = useLocation();
